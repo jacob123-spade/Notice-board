@@ -1,0 +1,110 @@
+.App{
+    display: flex; 
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-content {
+  display: block; /* 리액트 라우터를 쓰면 숨길 필요가 없으므로 */
+  width: 100%;
+  animation: fadeIn 0.3s ease;
+}
+
+/* UI 객체: 카드, 버튼 */
+.ui-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+.ui-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-primary {
+    background: var(--primary); 
+    color: white; 
+}
+
+.btn-secondary { 
+    background: #e2e8f0; 
+    color: var(--text); 
+}
+
+/* 테이블 시스템 (ListItem과 Home 공통) */
+.ui-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+.ui-table th { 
+    text-align: left; 
+    padding: 15px; 
+    border-bottom: 2px solid var(--border); 
+    color: var(--text-light); 
+    font-size: 0.85rem; 
+}
+
+.ui-table td { 
+    padding: 20px 15px; 
+    border-bottom: 1px solid var(--border); 
+}
+
+.tr-link { 
+    cursor: pointer; 
+    transition: 0.2s; 
+}
+
+.tr-link:hover { 
+    background-color: #f8fafc; 
+}
+
+/* 유틸리티 (도구상자) */
+.flex-between { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.fw-600 { 
+    font-weight: 600; 
+}
+
+.c-primary { 
+    color: var(--primary); 
+}
+
+.text-center { 
+    text-align: center; 
+}
+
+.w-60p { 
+    width: 60%; 
+}
+
+.mt-20 { 
+    margin-top: 20px; 
+}
+
+.mb-30 { 
+    margin-bottom: 30px; 
+}
+
+/*
+배운점 
+
+컴포넌트 사이에서 공통으로 사용되는 디자인은 (버튼, 카드, 테이블 등)은 App.css, index.css 등에 몰아넣은 다음 
+그 외 개개 컴포넌트는 해당 페이지에서만 쓰이는 특수한 레이아웃을 남기는 것이 정석이다. 
+
+*/

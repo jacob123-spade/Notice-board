@@ -1,0 +1,174 @@
+/* Edit.css */
+
+/* 1. 전체 페이지 배경 및 중앙 정렬 (App.css의 .page-content와 호환) */
+.Edit.page-content {
+    background-color: #f4f7fc; /* 연한 블루 그레이 배경으로 카드를 돋보이게 */
+    height: 100vh;  
+    display: flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: flex-start; /* 세로 상단 시작 */
+}
+
+/* 2. 핵심 카드 컨테이너 (.ui-card 스타일 계승 및 강화) */
+.edit-container {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 20px; /* 내부 여백 넉넉하게 */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); /* 고급스러운 그림자 */
+    animation: slideUp 0.5s ease-out; /* 등장 애니메이션 */
+    border: 1px solid rgba(0,0,0,0.03); /* 아주 미세한 테두리 */
+}
+
+/* 3. 헤더 영역 */
+.edit-header {
+    border-bottom: 2px solid #f1f3f5;
+    margin-bottom: 40px;
+}
+
+.edit-header h2 {
+    font-size: 30px;
+    font-weight: 800; /* 더 굵게 */
+    color: #2c3e50;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.edit-header p {
+    font-size: 17px;
+    color: #95a5a6;
+    margin-top: 10px;
+}
+
+/* 4. 바디 영역 (입력 필드) */
+.edit-body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* 입력 필드 간격 확대 */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input-group label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #34495e;
+    padding-left: 5px;
+}
+
+/* 입력창 공통 스타일 (모던하게 개조) */
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 18px 25px; /* 더 넉넉한 패딩 */
+    border: 1px solid #e1e8ed;
+    border-radius: 12px; /* 라운딩 확대 */
+    font-size: 17px;
+    color: #2c3e50;
+    background-color: #fafbfc; /* 연한 배경 */
+    transition: all 0.2s ease;
+}
+
+/* 텍스트 영역 전용 */
+.input-group textarea {
+    min-height: 400px; /* 더 넓게 */
+    resize: vertical;
+    line-height: 1.9; /* 가독성을 위한 줄 간격 확대 */
+}
+
+/* 포커스 시 효과 (테마 컬러 블루 활용) */
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: #3498db; /* 활기찬 블루 */
+    background-color: #fff;
+    box-shadow: 0 0 0 5px rgba(52, 152, 219, 0.15); /* 부드러운 강조 */
+}
+
+/* 5. 푸터 영역 (버튼 배치 - 중요) */
+.edit-footer {
+    display: flex;
+    justify-content: space-between; /* 중요: 삭제와 수정 버튼 분리 */
+    align-items: center;
+    margin-top: 60px;
+    padding-top: 35px;
+    border-top: 1px solid #f1f3f5;
+}
+
+/* 버튼 그룹 (취소/완료) */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+/* 버튼 공통 디테일 */
+button {
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+button:active {
+    transform: scale(0.97); /* 클릭 피드백 확실하게 */
+}
+
+/* 💙 수정 완료 버튼 (Main Action) */
+.btn-submit {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: #2980b9;
+    box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
+}
+
+/* ⚪ 취소 버튼 */
+.btn-cancel {
+    background-color: #ecf0f1;
+    color: #7f8c8d;
+}
+
+.btn-cancel:hover {
+    background-color: #bdc3c7;
+    color: #fff;
+}
+
+/* 🗑️ 삭제 버튼 (위험 신호 Red 포인트) */
+.btn-delete {
+    background-color: #fff;
+    color: #e74c3c; /* 선명한 레드 */
+    border: 2px solid #fadbd8;
+    padding: 13px 28px; /* 테두리 고려한 약간 작은 패딩 */
+}
+
+.btn-delete:hover {
+    background-color: #fdf2f2;
+    border-color: #e74c3c;
+    transform: translateY(-3px); /* 위로 살짝 뜨는 효과 */
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+}
+
+/* 등장 애니메이션 정의 */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

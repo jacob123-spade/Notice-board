@@ -1,0 +1,12 @@
+.Home{
+    width: 80vw;
+    padding: 20px; 
+}
+
+#home{
+    display: flex; 
+    flex-direction: column; 
+    gap: 30px; 
+}
+
+

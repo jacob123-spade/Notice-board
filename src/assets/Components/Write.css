@@ -1,0 +1,78 @@
+.Write{
+    display: flex; 
+    padding: 20px; 
+    width: 100vw; 
+}
+
+/* 글쓰기 페이지 레이아웃 - 그리드 시스템 활용 */
+.Write .grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 320px; /* 본문 영역과 AI 사이드바 영역 분리 */
+  gap: 30px;
+  align-items: start;
+}
+
+/* 입력창 공통 스타일 */
+.ui-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ui-input:focus {
+  border-color: var(--primary);
+}
+
+/* 텍스트 영역 스타일 */
+.ui-textarea {
+  width: 100%;
+  height: 450px;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  resize: none;
+  line-height: 1.6;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.ui-textarea:focus {
+  border-color: var(--primary);
+}
+
+/* AI 도우미 섹션 특화 디자인 (그라데이션 보더) */
+.ai-section {
+  border: 2px solid transparent;
+  background-image: linear-gradient(#fff, #fff), 
+                    linear-gradient(135deg, var(--primary), var(--secondary));
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+/* AI 추천 태그/배지 스타일 */
+.ai-badge {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f5f3ff;
+  border-radius: 8px;
+  font-weight: bold;
+  color: var(--secondary);
+  text-align: center;
+}
+
+/* 반응형 처리 (화면이 작아지면 사이드바가 아래로) */
+@media (max-width: 1024px) {
+  .Write .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .ai-section {
+    order: -1; /* 모바일에서는 AI 섹션이 위로 오게 할 수도 있음 */
+  }
+}
