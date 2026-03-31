@@ -12,8 +12,8 @@ const Edit = ({setPageInfo})=>{
     }); 
     
     const [input, setInput] = useState({
-        title: "", 
-        content: "",
+        title: initData?.title || "", 
+        content: initData?.content || "",
     }); 
 
     const nav = useNavigate(); 
@@ -24,16 +24,6 @@ const Edit = ({setPageInfo})=>{
         setPageInfo("edit"); 
     }, [setPageInfo]);
 
-
-    useEffect(()=>{
-        if(initData){
-            setInput({
-                title: initData.title, 
-                content: initData.content, 
-            }); 
-        }
-
-    }, [initData]); 
 
     if(!initData){
         return <div style={{padding: "20px"}}>Error! The Page does not Exsist</div>

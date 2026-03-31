@@ -18,7 +18,7 @@ const Detail = ({setPageInfo})=>{
 
 
     if(!initData){
-        return <div>Error!</div>
+        return <div style={{padding: "20px"}}>Error!</div>
     }
 
 
@@ -39,7 +39,7 @@ const Detail = ({setPageInfo})=>{
                         <h4 className="mb-30">🔗 AI 추천 연관글</h4>
                         <p className="c-primary tr-link">👉 오픈소스 기여 시작하기 가이드</p>
                     </div>
-                    <button className="ui-btn btn-secondary" onClick={()=> nav("/")}>목록으로</button>
+                    <button className="ui-btn btn-secondary" onClick={()=> nav("/")}>목록</button>
                 </div>
             </section>
         </div>

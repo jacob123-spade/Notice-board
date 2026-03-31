@@ -1,0 +1,133 @@
+/* Login.css */
+
+/* 1. 전체 배경 - 약간의 그라데이션으로 깊이감 부여 */
+.Login.page-content {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 2. 로그인 컨테이너 - 크기를 키우고 여백을 대폭 확대 */
+.login-container {
+    background-color: #ffffff;
+    width: 90%; /* 모바일 대응 */
+    max-width: 600px; /* 기존보다 훨씬 크게 설정 */
+    padding: 60px; /* 내부 여백을 아주 넉넉하게 */
+    border-radius: 30px; /* 라운딩을 더 부드럽게 */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1); /* 더 부드럽고 깊은 그림자 */
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* 3. 헤더 - 텍스트 크기 키우기 */
+.login-header {
+    text-align: left; /* 왼쪽 정렬로 변경하여 세련미 강조 */
+    margin-bottom: 50px;
+}
+
+.login-header h2 {
+    font-size: 36px; /* 더 큼직하게 */
+    font-weight: 900;
+    color: #1a2a3a;
+    letter-spacing: -1px;
+    margin-bottom: 15px;
+}
+
+.login-header p {
+    color: #7f8c8d;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* 4. 바디 - 입력 필드 디자인 강화 */
+.login-body {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.input-group label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 20px 25px; /* 입력창 높이 확대 */
+    border: 2px solid #edf2f7;
+    border-radius: 15px;
+    font-size: 17px;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+}
+
+/* 5. 로그인 버튼 - 압도적인 존재감 */
+.btn-login {
+    margin-top: 20px;
+    background: linear-gradient(to right, #3498db, #2980b9); /* 그라데이션 */
+    color: white;
+    width: 100%;
+    padding: 22px;
+    border-radius: 15px;
+    font-size: 19px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+}
+
+.btn-login:active {
+    transform: scale(0.98);
+}
+
+/* 6. 푸터 - 하단부 정리 */
+.login-footer {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #f1f3f5;
+    text-align: center;
+    font-size: 16px;
+    color: #95a5a6;
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: #3498db;
+    font-weight: 700;
+    margin-left: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+/* 등장 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

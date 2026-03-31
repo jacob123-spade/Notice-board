@@ -1,0 +1,75 @@
+/* SignUp.css */
+
+.SignUp.page-content {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh; /* 내용이 길어질 수 있으므로 min-height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0; 
+}
+
+.signup-container {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-out;
+}
+
+.signup-header {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.signup-header h2 {
+    font-size: 32px;
+    font-weight: 900;
+    color: #1a2a3a;
+    margin-bottom: 10px;
+}
+
+.signup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btn-signup {
+    margin-top: 20px;
+    background: linear-gradient(to right, #2ecc71, #27ae60); /* 가입은 초록 계열로 포인트 */
+    color: white;
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-signup:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
+}
+
+.signup-footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 15px;
+    color: #95a5a6;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
