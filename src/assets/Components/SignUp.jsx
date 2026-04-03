@@ -1,9 +1,25 @@
 import './SignUp.css'; 
 import { useNavigate } from "react-router-dom"
+import { useState } from 'react';
 
 const SignUp = ()=>{
-    const nav = useNavigate(); 
+    const nav = useNavigate();  
+    const [signUpInfo, setSignUpInfo] = useState({
+        id: "",
+        pwd: "", 
+        nickName: "", 
+    }); 
 
+    const onChangeSignUpInfo = (e)=>{
+        const {name, value} = e.target; 
+
+        setSignUpInfo({
+            ...signUpInfo, 
+            [name]: value, 
+        }); 
+    }; 
+
+    
     return (
         <div className="SignUp page-content">
             <div className="signup-container">
@@ -15,12 +31,20 @@ const SignUp = ()=>{
                 <form className="signup-body">
                     <div className="input-group">
                         <label>아이디</label>
-                        <input placeholder="사용할 아이디를 입력하세요" />
+                        <input
+                        name="id"
+                        value={signUpInfo.id}
+                        onChange={onChangeSignUpInfo} 
+                        placeholder="사용할 아이디를 입력하세요" />
                     </div>
 
                     <div className="input-group">
                         <label>비밀번호</label>
-                        <input type="password" placeholder="문자, 숫자 포함 8자 이상" />
+                        <input
+                        name="pwd"
+                        value={signUpInfo.pwd}
+                        onChange={onChangeSignUpInfo} 
+                        type="password" placeholder="문자, 숫자 포함 8자 이상" />
                     </div>
 
                     <div className="input-group">
@@ -30,7 +54,11 @@ const SignUp = ()=>{
 
                     <div className="input-group">
                         <label>닉네임</label>
-                        <input placeholder="화면에 표시될 이름입니다" />
+                        <input
+                        name="nickName"
+                        value={signUpInfo.nickName}
+                        onChange={onChangeSignUpInfo} 
+                        placeholder="화면에 표시될 이름입니다" />
                     </div>
 
                     <button type="submit" className="btn-signup">

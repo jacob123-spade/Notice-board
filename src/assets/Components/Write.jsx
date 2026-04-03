@@ -15,7 +15,6 @@ const formattedDate = ()=>{
 const Write = ({setPageInfo})=>{
     const {onCreate } = useContext(BoardDispatchContext); 
     const nav = useNavigate(); 
-    const idRef = useRef(1025);
     const titleRef = useRef(); 
     const contentRef = useRef();  
 
@@ -49,7 +48,6 @@ const Write = ({setPageInfo})=>{
         }
 
         onCreate(
-            idRef.current, 
             writes.title, 
             "익명의 작성자", 
             formattedDate(), 
@@ -57,7 +55,6 @@ const Write = ({setPageInfo})=>{
             writes.content, 
         ); 
 
-        idRef.current++; 
         nav("/"); 
     }
 

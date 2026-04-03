@@ -1,6 +1,6 @@
 import './App.css'; 
 import { Routes, Route} from "react-router-dom"; 
-import { useReducer, useState } from 'react';
+import { useReducer, useRef, useState } from 'react';
 import { BoardDataContext, BoardDispatchContext } from './assets/Components/Context';
 import SideBar from './assets/Components/SideBar';
 import Home from './assets/Components/Home';
@@ -48,10 +48,7 @@ const reducer = (state, action)=>{
       return state.filter((item)=> item.id !== action.id); 
 
     case "UPDATE": 
-      return state.map((item)=> item.id === action.data.id ? action.data : item); 
-
-    case "SUBMIT": 
-      return 
+      return state.map((item)=> item.id === action.data.id ? action.data : item);
     
     default: 
       return state; 
@@ -62,12 +59,13 @@ const reducer = (state, action)=>{
 function App() {
   const [state, dispatch] = useReducer(reducer, mockPosts); 
   const [pageInfo, setPageInfo] = useState("home"); //내가 현재 들어간 페이지 정보를 반환 -> SideBar 디자인을 위해서 사용 
+  const idRef = useRef(1025); 
 
-  const onCreate = (id, title, writer, date, numRecommend, content)=>{
+  const onCreate = (title, writer, date, numRecommend, content)=>{
     dispatch({
       type: "CREATE", 
       data: {
-        id: id, 
+        id: idRef.current++, 
         title: title, 
         writer: writer, 
         date: date, 
@@ -137,6 +135,9 @@ export default App;
 
 “유지보수 + 확장성 + 예측 가능성” 때문에 쓴다
 
+3. idRef를 App.jsx에서 해준 이유는 Write.jsx에서 할 경우 글을 다 쓴다음에 홈페이지로 넘어가면 
+writer.jsx가 언마운트 됐다가 다시 그려질때마다 레퍼런스가 초기화 되기 때문이다. => useRef는 페이지 내부 state가 바뀌거나 해서 
+재랜더링 될때는 값을 유지하지만 언마운트됐다가 다시 그려질때는 그 값을 잊어버린다.  
 
 
 
