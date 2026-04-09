@@ -22,3 +22,9 @@
     background-color: #ffb743;
     color: #fff; 
 }
+
+.Detail .button-section{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+}

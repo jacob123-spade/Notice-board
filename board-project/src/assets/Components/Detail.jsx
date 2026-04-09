@@ -4,7 +4,7 @@ import {BoardDataContext} from "./Context";
 import { useContext, useEffect } from "react";
 
 
-const Detail = ({setPageInfo})=>{ 
+const Detail = ({setPageInfo, login})=>{ 
     const {id} = useParams(); 
     const data = useContext(BoardDataContext); 
     const initData = data.find((item)=>{
@@ -14,13 +14,12 @@ const Detail = ({setPageInfo})=>{
 
     useEffect(()=>{
         setPageInfo("detail"); 
-    }, [setPageInfo])
+    }, [setPageInfo]); 
 
 
     if(!initData){
         return <div style={{padding: "20px"}}>Error!</div>
     }
-
 
     return (
         <div className="Detail">
@@ -39,7 +38,10 @@ const Detail = ({setPageInfo})=>{
                         <h4 className="mb-30">🔗 AI 추천 연관글</h4>
                         <p className="c-primary tr-link">👉 오픈소스 기여 시작하기 가이드</p>
                     </div>
-                    <button className="ui-btn btn-secondary" onClick={()=> nav("/")}>목록</button>
+                    <div className="button-section">
+                        <button className="ui-btn btn-secondary" onClick={()=> nav("/")}>목록</button>
+                        {login ? <button className="ui-btn btn-secondary" onClick={()=> nav(`/edit/${id}`)}>수정</button> : ""}
+                    </div>
                 </div>
             </section>
         </div>

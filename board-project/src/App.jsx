@@ -7,7 +7,7 @@ import Home from './assets/Components/Home';
 import Write from './assets/Components/Write';
 import Detail from './assets/Components/Detail';
 import Edit from './assets/Components/Edit'; 
-import AiBoard from './assets/Components/AiBoard';
+import MyPage from './assets/Components/MyPage';
 import Login from './assets/Components/Login';
 import SignUp from './assets/Components/SignUp';
 import NotFound from './assets/Components/NotFound'; 
@@ -60,6 +60,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, mockPosts); 
   const [pageInfo, setPageInfo] = useState("home"); //내가 현재 들어간 페이지 정보를 반환 -> SideBar 디자인을 위해서 사용 
   const idRef = useRef(1025); 
+  const [isLogin, setIsLogin] = useState(false); 
 
   const onCreate = (title, writer, date, numRecommend, content)=>{
     dispatch({
@@ -97,11 +98,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home setPageInfo={setPageInfo}></Home>}></Route>
             <Route path="/write" element={<Write setPageInfo={setPageInfo}></Write>}></Route>
-            <Route path="/detail/:id" element={<Detail setPageInfo={setPageInfo}></Detail>}></Route>
+            <Route path="/detail/:id" element={<Detail setPageInfo={setPageInfo} login={isLogin}></Detail>}></Route>
             <Route path="/edit/:id" element={<Edit setPageInfo={setPageInfo}></Edit>}></Route>
-            <Route path="/ai" element={<AiBoard setPageInfo={setPageInfo}></AiBoard>}></Route>
-            <Route path="/login" element={<Login setPageInfo={setPageInfo}></Login>}></Route>
+            <Route path="/login" element={<Login setPageInfo={setPageInfo} setIsLogin={setIsLogin}></Login>}></Route>
             <Route path="/signUp" element={<SignUp></SignUp>}></Route>
+            <Route path="/mypage/:userId" element={<MyPage></MyPage>}></Route>
             <Route path="/*" element={<NotFound setPageInfo={setPageInfo}></NotFound>}></Route>
           </Routes>
         </div>
@@ -139,6 +140,15 @@ export default App;
 writer.jsx가 언마운트 됐다가 다시 그려질때마다 레퍼런스가 초기화 되기 때문이다. => useRef는 페이지 내부 state가 바뀌거나 해서 
 재랜더링 될때는 값을 유지하지만 언마운트됐다가 다시 그려질때는 그 값을 잊어버린다.  
 
+
+*/
+
+/*
+구현할 부분 
+
+1. 이제 개인마다 userId를 부여, 로그인시에 userId에 맞는 mypage 생성 및 랜더링, mypage에서는 내가 쓴글 등을 볼 수 있게 구현 
+
+2. 글마다 userId를 부여, userId와 맞는 것만 수정할 수 있도록 만들어줌. 
 
 
 

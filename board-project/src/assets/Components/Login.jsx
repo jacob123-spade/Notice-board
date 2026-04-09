@@ -2,7 +2,7 @@ import './Login.css';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({setPageInfo})=>{
+const Login = ({setPageInfo, setIsLogin})=>{
 
     useEffect(()=>{
         setPageInfo("login"); 
@@ -39,6 +39,7 @@ const Login = ({setPageInfo})=>{
 
         else{
             alert("로그인 성공 환영합니다!!"); 
+            setIsLogin(true); 
             nav("/"); 
         }
 
