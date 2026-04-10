@@ -40,6 +40,7 @@ const Login = ({setPageInfo, setIsLogin})=>{
         else{
             alert("로그인 성공 환영합니다!!"); 
             setIsLogin(true); 
+            localStorage.setItem("userId", userId); 
             nav("/"); 
         }
 

@@ -36,6 +36,33 @@ const mockPosts = [
         date: "2026-03-24", 
         numRecommend: 38,
         content: "Context API부터 Redux까지 한눈에 살펴봅시다."
+    }, 
+
+    {
+      id: 1025, 
+      title: "리액트 공부 방향 잡기", 
+      writer: "admin", 
+      date: "2024-10-22", 
+      numRecommend: 100, 
+      content: "리액트 공부방향", 
+    }, 
+
+    {
+      id: 1026, 
+      title: "로그인 페이지", 
+      writer: "admin", 
+      date: "2024-10-4", 
+      numRecommend: 20, 
+      content: "로그인 페이지 만들기", 
+    }, 
+
+    {
+      id: 1027, 
+      title: "공부 효율적으로 하는 법", 
+      writer: "admin", 
+      date: "2024-10-13", 
+      numRecommend: 100, 
+      content: "공부방법", 
     }
 ];
 
@@ -102,7 +129,7 @@ function App() {
             <Route path="/edit/:id" element={<Edit setPageInfo={setPageInfo}></Edit>}></Route>
             <Route path="/login" element={<Login setPageInfo={setPageInfo} setIsLogin={setIsLogin}></Login>}></Route>
             <Route path="/signUp" element={<SignUp></SignUp>}></Route>
-            <Route path="/mypage/:userId" element={<MyPage></MyPage>}></Route>
+            <Route path="/mypage/:userId" element={<MyPage setPageInfo={setPageInfo} isLogin={isLogin}></MyPage>}></Route>
             <Route path="/*" element={<NotFound setPageInfo={setPageInfo}></NotFound>}></Route>
           </Routes>
         </div>
