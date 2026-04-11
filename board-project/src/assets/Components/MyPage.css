@@ -3,7 +3,7 @@
 .MyPage.page-content {
   background-color: #f0f2f5;
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 20px;
   display: flex;
   justify-content: center;
 }
@@ -14,7 +14,7 @@
   background: #ffffff;
   border-radius: 30px;
   padding: 50px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); 
 }
 
 /* 헤더 디자인 */
@@ -160,6 +160,13 @@
 
 .btn-edit:hover, .btn-delete:hover {
   opacity: 0.8;
+}
+
+.logout-container{
+  padding: 20px 0; 
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
 }
 
 /*

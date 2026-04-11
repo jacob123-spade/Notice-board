@@ -11,6 +11,7 @@ import MyPage from './assets/Components/MyPage';
 import Login from './assets/Components/Login';
 import SignUp from './assets/Components/SignUp';
 import NotFound from './assets/Components/NotFound'; 
+import NotLogin from './assets/Components/NotLogin';
 
 const mockPosts = [
     { 
@@ -129,7 +130,7 @@ function App() {
             <Route path="/edit/:id" element={<Edit setPageInfo={setPageInfo}></Edit>}></Route>
             <Route path="/login" element={<Login setPageInfo={setPageInfo} setIsLogin={setIsLogin}></Login>}></Route>
             <Route path="/signUp" element={<SignUp></SignUp>}></Route>
-            <Route path="/mypage/:userId" element={<MyPage setPageInfo={setPageInfo} isLogin={isLogin}></MyPage>}></Route>
+            <Route path="/mypage/:userId" element={<MyPage setPageInfo={setPageInfo} isLogin={isLogin} setIsLogin={setIsLogin}></MyPage>}></Route>
             <Route path="/*" element={<NotFound setPageInfo={setPageInfo}></NotFound>}></Route>
           </Routes>
         </div>
