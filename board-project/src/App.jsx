@@ -1,7 +1,7 @@
 import './App.css'; 
 import { Routes, Route} from "react-router-dom"; 
 import { useReducer, useRef, useState } from 'react';
-import { BoardDataContext, BoardDispatchContext } from './assets/Components/Context';
+import { BoardDataContext, BoardDispatchContext, CommentDataContext, CommentDispatchContext } from './assets/Components/Context';
 import SideBar from './assets/Components/SideBar';
 import Home from './assets/Components/Home';
 import Write from './assets/Components/Write';
@@ -67,6 +67,38 @@ const mockPosts = [
     }
 ];
 
+const initialComment = [
+  {
+    //1024번 게시글의 1번째 댓글 
+    id: 1, 
+    postId: 1024, 
+    parentId: null, 
+    content: "이 내용으로 많이 해주세요!!", 
+    writer: "admin", 
+    date: new Date("2023-10-22").getTime(), 
+  }, 
+
+  {
+    //1024번 게시글의 2번째 댓글임과 동시에 첫번째 댓글의 댓글 (대댓글)
+    id: 2, 
+    postId: 1024, 
+    parentId: 1, //1번 댓글의 댓글 즉 대댓글 
+    content: "공감합니다.", 
+    writer: "hamin", 
+    date: new Date("2023-10-25").getTime(), 
+  }, 
+
+  {
+    id: 3, 
+    postId: 1023, 
+    parentId: null, 
+    content: "이런 글 이제 식상", 
+    writer: "Jack", 
+    date: new Date("2025-03-22").getTime(), 
+  }, 
+
+]
+
 const reducer = (state, action)=>{
   switch(action.type){
     case "CREATE": 
@@ -89,6 +121,8 @@ function App() {
   const [pageInfo, setPageInfo] = useState("home"); //내가 현재 들어간 페이지 정보를 반환 -> SideBar 디자인을 위해서 사용 
   const idRef = useRef(1025); 
   const [isLogin, setIsLogin] = useState(false); 
+  const [comments, setComments] = useState(initialComment); 
+  const commentIdRef = useRef(1028); 
 
   const onCreate = (title, writer, date, numRecommend, content)=>{
     dispatch({
@@ -118,22 +152,39 @@ function App() {
     })
   }
 
+  const onCreateComment = (postId, parentId, content, writer)=>{
+    const newComment = {
+      id: commentIdRef.current++,
+      postId: postId, 
+      parentId: parentId, 
+      content: content, 
+      writer: writer, 
+      date: new Date().getTime(), 
+    }
+
+    setComments([newComment, ...comments]); 
+  }; 
+
   return (
     <BoardDataContext.Provider value={state}>
       <BoardDispatchContext.Provider value={{onCreate, onDelete, onUpdate }}>
-        <div className='App'>
-          <SideBar pageInfo={pageInfo}></SideBar>
-          <Routes>
-            <Route path="/" element={<Home setPageInfo={setPageInfo}></Home>}></Route>
-            <Route path="/write" element={<Write setPageInfo={setPageInfo}></Write>}></Route>
-            <Route path="/detail/:id" element={<Detail setPageInfo={setPageInfo} login={isLogin}></Detail>}></Route>
-            <Route path="/edit/:id" element={<Edit setPageInfo={setPageInfo}></Edit>}></Route>
-            <Route path="/login" element={<Login setPageInfo={setPageInfo} setIsLogin={setIsLogin}></Login>}></Route>
-            <Route path="/signUp" element={<SignUp></SignUp>}></Route>
-            <Route path="/mypage/:userId" element={<MyPage setPageInfo={setPageInfo} isLogin={isLogin} setIsLogin={setIsLogin}></MyPage>}></Route>
-            <Route path="/*" element={<NotFound setPageInfo={setPageInfo}></NotFound>}></Route>
-          </Routes>
-        </div>
+        <CommentDataContext.Provider value={comments}>
+          <CommentDispatchContext.Provider value={onCreateComment}>
+            <div className='App'>
+              <SideBar pageInfo={pageInfo}></SideBar>
+              <Routes>
+                <Route path="/" element={<Home setPageInfo={setPageInfo}></Home>}></Route>
+                <Route path="/write" element={<Write setPageInfo={setPageInfo}></Write>}></Route>
+                <Route path="/detail/:id" element={<Detail setPageInfo={setPageInfo} login={isLogin}></Detail>}></Route>
+                <Route path="/edit/:id" element={<Edit setPageInfo={setPageInfo}></Edit>}></Route>
+                <Route path="/login" element={<Login setPageInfo={setPageInfo} setIsLogin={setIsLogin}></Login>}></Route>
+                <Route path="/signUp" element={<SignUp></SignUp>}></Route>
+                <Route path="/mypage/:userId" element={<MyPage setPageInfo={setPageInfo} isLogin={isLogin} setIsLogin={setIsLogin}></MyPage>}></Route>
+                <Route path="/*" element={<NotFound setPageInfo={setPageInfo}></NotFound>}></Route>
+              </Routes>
+            </div>
+          </CommentDispatchContext.Provider>
+        </CommentDataContext.Provider>
       </BoardDispatchContext.Provider>
     </BoardDataContext.Provider>
   )
@@ -168,6 +219,8 @@ export default App;
 writer.jsx가 언마운트 됐다가 다시 그려질때마다 레퍼런스가 초기화 되기 때문이다. => useRef는 페이지 내부 state가 바뀌거나 해서 
 재랜더링 될때는 값을 유지하지만 언마운트됐다가 다시 그려질때는 그 값을 잊어버린다.  
 
+4. 댓글의 데이트 객체를 new Date().getTime()을 사용하는 경우는 getTime이 UTC 값을 반환해서 정렬, 형태 변환, 데이터 용량이 작다. 
+
 
 */
 
@@ -177,6 +230,8 @@ writer.jsx가 언마운트 됐다가 다시 그려질때마다 레퍼런스가 �
 1. 이제 개인마다 userId를 부여, 로그인시에 userId에 맞는 mypage 생성 및 랜더링, mypage에서는 내가 쓴글 등을 볼 수 있게 구현 
 
 2. 글마다 userId를 부여, userId와 맞는 것만 수정할 수 있도록 만들어줌. 
+
+3. 댓글 기능 추가. 
 
 
 
