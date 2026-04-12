@@ -8,7 +8,7 @@ const SideBar = ({pageInfo})=>{
     
     return (
         <div className="sidebar">
-            <h2>AI-BOARD</h2>
+            <h2>OOPS</h2>
             <nav>
                 <div className={`nav-item ${pageInfo === "home" ? "active" : ""}`} onClick={()=>nav("/")}>🏠 커뮤니티 홈</div>
                 <div className={`nav-item ${pageInfo === "write" ? "active" : ""}`} onClick={()=>nav("/write")}>✍️ 새 글 작성</div>
