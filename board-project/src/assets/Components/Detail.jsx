@@ -25,7 +25,7 @@ const Detail = ({setPageInfo, login})=>{
 
 
     if(!initData){
-        return <div style={{padding: "20px"}}>Error!</div>
+        return <div style={{padding: "20px"}}>존재하지 않는 게시글입니다</div>
     }
 
     return (
