@@ -48,7 +48,6 @@ const Detail = ({setPageInfo, login})=>{
                     </div>
                     <div className="button-section">
                         <button className="ui-btn btn-secondary" onClick={()=> nav("/")}>목록</button>
-                        {login ? <button className="ui-btn btn-secondary" onClick={()=> nav(`/edit/${id}`)}>수정</button> : ""}
                     </div>
                 </div>
 
