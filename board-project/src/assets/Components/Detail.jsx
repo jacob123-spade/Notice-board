@@ -2,7 +2,7 @@ import "./Detail.css";
 import { useNavigate, useParams } from "react-router-dom";
 import {BoardDataContext, CommentDataContext} from "./Context"; 
 import { useContext, useEffect } from "react";
-import CommentItem from "./CommentItme";
+import CommentItem from "./CommentItem";
 
 
 const Detail = ({setPageInfo, login})=>{ 
