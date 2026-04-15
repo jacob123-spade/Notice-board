@@ -119,10 +119,10 @@ const reducer = (state, action)=>{
 function App() {
   const [state, dispatch] = useReducer(reducer, mockPosts); 
   const [pageInfo, setPageInfo] = useState("home"); //내가 현재 들어간 페이지 정보를 반환 -> SideBar 디자인을 위해서 사용 
-  const idRef = useRef(1025); 
+  const idRef = useRef(1028); 
   const [isLogin, setIsLogin] = useState(false); 
   const [comments, setComments] = useState(initialComment); 
-  const commentIdRef = useRef(1028); 
+  const commentIdRef = useRef(4); 
 
   const onCreate = (title, writer, date, numRecommend, content)=>{
     dispatch({

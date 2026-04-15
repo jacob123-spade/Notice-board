@@ -17,6 +17,7 @@ const Write = ({setPageInfo, isLogin})=>{
     const nav = useNavigate(); 
     const titleRef = useRef(); 
     const contentRef = useRef();  
+    const userName = JSON.parse(localStorage.getItem("userInfo")).nickName; 
 
     useEffect(()=>{
         setPageInfo("write"); 
@@ -49,7 +50,7 @@ const Write = ({setPageInfo, isLogin})=>{
 
         onCreate(
             writes.title, 
-            JSON.parse(localStorage.getItem("userId")), 
+            userName, 
             formattedDate(), 
             0, 
             writes.content, 
