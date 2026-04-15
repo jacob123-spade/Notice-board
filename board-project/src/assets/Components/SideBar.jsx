@@ -22,3 +22,12 @@ const SideBar = ({pageInfo})=>{
 }; 
 
 export default SideBar; 
+
+
+/*
+
+구현할 부분
+
+현재 다른 계정으로 로그인해도 mypage 클릭시에는 admin아이디로 화면이 보여짐 -> 해결 필요 
+
+*/
