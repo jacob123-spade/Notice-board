@@ -33,6 +33,11 @@ const SignUp = ({setIsLogin})=>{
             confirmRef.current.focus(); 
             return; 
         }
+
+        const storedUser = JSON.parse(localStorage.getItem("users") || "[]"); 
+        const newUserList = [...storedUser, signUpInfo]; 
+
+        localStorage.setItem("users", JSON.stringify(newUserList)); 
         localStorage.setItem("userInfo", JSON.stringify(signUpInfo)); 
         setIsLogin(true); 
         nav(`/mypage/${signUpInfo.id}`); 

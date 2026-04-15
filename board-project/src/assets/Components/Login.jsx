@@ -29,19 +29,25 @@ const Login = ({setPageInfo, setIsLogin})=>{
         
         const {userId, pwd} = personalInfo; 
 
+        const users = JSON.parse(localStorage.getItem("users") || "[]"); 
+
+        const targetUser = users.find((user)=>{
+            return user.id === userId && user.pwd === pwd; 
+        }); 
+
         if(!userId || !pwd){
-            alert("아이디와 비밀번호를 모두 입력해주세요");  
+            alert("아이디와 비밀번호를 모두 입력해주세요"); 
+            
         }
 
-        else if(userId !== "admin" || pwd !== "1234"){
-            alert("아이디 또는 비밀번호가 일치하지 않습니다.");  
+        else if(targetUser){
+            localStorage.setItem("userInfo", JSON.stringify(targetUser)); 
+            setIsLogin(true); 
+            nav("/"); 
         }
 
         else{
-            alert("로그인 성공 환영합니다!!"); 
-            setIsLogin(true); 
-            localStorage.setItem("userId", userId); 
-            nav("/"); 
+            alert("아이디와 비밀번호가 일치하지 않습니다!"); 
         }
 
         setPersonalInfo({
@@ -105,6 +111,8 @@ export default Login;
 하지만 리액트 같은 SPA(Single Page Application)에서는 페이지가 깜빡이며 새로고침되면 모든 상태(state)가 초기화되어버리기 때문에
 이걸 방지하기 위함이다. 
 
+2. const users = JSON.parse(localStorage.getItem("users") || "[]"); 
+이 코드는 users라는 아이템이 로컬에 있으면 가져오고 없으면 빈 리스트를 파싱할 수 있게 해준 코드이다. 
 
 
 */

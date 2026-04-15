@@ -49,7 +49,7 @@ const Write = ({setPageInfo, isLogin})=>{
 
         onCreate(
             writes.title, 
-            "익명의 작성자", 
+            JSON.parse(localStorage.getItem("userId")), 
             formattedDate(), 
             0, 
             writes.content, 

@@ -3,7 +3,7 @@ import PostItem from "./PostItem";
 import Error from "./Error";
 import NotLogin from "./NotLogin";
 import { useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BoardDataContext } from "./Context";
 
 const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
@@ -14,15 +14,17 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
 
     const {userId} = useParams();  
     const state = useContext(BoardDataContext);
+    const storedUser = localStorage.getItem("userInfo"); 
+    const currentUser = storedUser ? JSON.parse(storedUser) : null; 
+    const nav = useNavigate(); 
 
     if(!state){
         return <Error/>
     }
 
-    if(!isLogin){
-        return (
-            <NotLogin></NotLogin>
-        )
+    if(!isLogin || !currentUser){
+        nav("/notlogin");  
+        return; 
     }
 
     const filteredData = state.filter((item)=>{
@@ -37,8 +39,8 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
 
    const LogOut = ()=>{
     //유저아이디 삭제해주기 
-    localStorage.removeItem("userId"); 
-
+    localStorage.removeItem("userInfo"); 
+    nav("/"); 
     setIsLogin(false); 
    }
 
@@ -48,7 +50,7 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
                 <div className="mypage-header">
                     <div className="user-badge">👤</div>
                     <h2>마이페이지</h2>
-                    <p><strong>{userId}</strong>님, 안녕하세요! 오늘 작성한 글을 확인해보세요.</p>
+                    <p><strong>{currentUser.nickName}</strong>님, 안녕하세요! 오늘 작성한 글을 확인해보세요.</p>
                 </div>
 
                 <div className="mypage-summary">

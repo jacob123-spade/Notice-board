@@ -180,6 +180,7 @@ function App() {
                 <Route path="/login" element={<Login setPageInfo={setPageInfo} setIsLogin={setIsLogin}></Login>}></Route>
                 <Route path="/signUp" element={<SignUp setIsLogin={setIsLogin}></SignUp>}></Route>
                 <Route path="/mypage/:userId" element={<MyPage setPageInfo={setPageInfo} isLogin={isLogin} setIsLogin={setIsLogin}></MyPage>}></Route>
+                <Route path="/notlogin" element={<NotLogin setPageInfo={setPageInfo}></NotLogin>}></Route>
                 <Route path="/*" element={<NotFound setPageInfo={setPageInfo}></NotFound>}></Route>
               </Routes>
             </div>

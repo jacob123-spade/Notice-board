@@ -1,9 +1,16 @@
 import "./NotLogin.css"; 
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
-const NotLogin = ()=>{
+const NotLogin = ({setPageInfo})=>{
     const nav = useNavigate(); 
+
+    useEffect(()=>{
+        setPageInfo("notlogin"); 
+
+    }, [setPageInfo]); 
+    
 
     return (
         <div className="NotLogin page-content">
