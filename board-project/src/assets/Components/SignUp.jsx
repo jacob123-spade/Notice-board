@@ -1,14 +1,16 @@
 import './SignUp.css'; 
 import { useNavigate } from "react-router-dom"
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
-const SignUp = ()=>{
+const SignUp = ({setIsLogin})=>{
     const nav = useNavigate();  
     const [signUpInfo, setSignUpInfo] = useState({
         id: "",
         pwd: "", 
         nickName: "", 
-    }); 
+    });
+    const [confirm, setConfirm] = useState("");  
+    const confirmRef = useRef(); 
 
     const onChangeSignUpInfo = (e)=>{
         const {name, value} = e.target; 
@@ -19,13 +21,30 @@ const SignUp = ()=>{
         }); 
     }; 
 
+    const onChangeConfirm = (e)=>{
+        setConfirm(e.target.value); 
+    }
+
+    const onSubmitUserInfo = (e)=>{
+        e.preventDefault(); 
+
+        if(signUpInfo.pwd !== confirm){
+            setConfirm(""); 
+            confirmRef.current.focus(); 
+            return; 
+        }
+        localStorage.setItem("userInfo", JSON.stringify(signUpInfo)); 
+        setIsLogin(true); 
+        nav(`/mypage/${signUpInfo.id}`); 
+    }
+
     
     return (
         <div className="SignUp page-content">
             <div className="signup-container">
                 <div className="signup-header">
                     <h2>📝 회원가입</h2>
-                    <p>AI-BOARD의 새로운 가족이 되어주세요!</p>
+                    <p>OOPS의 새로운 가족이 되어주세요!</p>
                 </div>
 
                 <form className="signup-body">
@@ -49,7 +68,12 @@ const SignUp = ()=>{
 
                     <div className="input-group">
                         <label>비밀번호 확인</label>
-                        <input type="password" placeholder="비밀번호를 한 번 더 입력하세요" />
+                        <input 
+                        type="password"
+                        value={confirm}
+                        onChange={onChangeConfirm}
+                        ref={confirmRef}
+                        placeholder="비밀번호를 한 번 더 입력하세요"/>
                     </div>
 
                     <div className="input-group">
@@ -61,7 +85,7 @@ const SignUp = ()=>{
                         placeholder="화면에 표시될 이름입니다" />
                     </div>
 
-                    <button type="submit" className="btn-signup">
+                    <button type="submit" className="btn-signup" onClick={onSubmitUserInfo}>
                         가입하기 🚀
                     </button>
                 </form>
@@ -76,3 +100,11 @@ const SignUp = ()=>{
 }
 
 export default SignUp; 
+
+/*
+배운점: 
+
+1. form태그는 제출을 하면 화면을 새로고침하려는 성질이 있다. 그래서 e.preventDefault를 해줘야 한다. 
+
+
+*/

@@ -174,11 +174,11 @@ function App() {
               <SideBar pageInfo={pageInfo}></SideBar>
               <Routes>
                 <Route path="/" element={<Home setPageInfo={setPageInfo}></Home>}></Route>
-                <Route path="/write" element={<Write setPageInfo={setPageInfo}></Write>}></Route>
+                <Route path="/write" element={<Write setPageInfo={setPageInfo} isLogin={isLogin}></Write>}></Route>
                 <Route path="/detail/:id" element={<Detail setPageInfo={setPageInfo} login={isLogin}></Detail>}></Route>
                 <Route path="/edit/:id" element={<Edit setPageInfo={setPageInfo}></Edit>}></Route>
                 <Route path="/login" element={<Login setPageInfo={setPageInfo} setIsLogin={setIsLogin}></Login>}></Route>
-                <Route path="/signUp" element={<SignUp></SignUp>}></Route>
+                <Route path="/signUp" element={<SignUp setIsLogin={setIsLogin}></SignUp>}></Route>
                 <Route path="/mypage/:userId" element={<MyPage setPageInfo={setPageInfo} isLogin={isLogin} setIsLogin={setIsLogin}></MyPage>}></Route>
                 <Route path="/*" element={<NotFound setPageInfo={setPageInfo}></NotFound>}></Route>
               </Routes>

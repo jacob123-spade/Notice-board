@@ -15,7 +15,7 @@ const SideBar = ({pageInfo})=>{
                 {pageInfo === "detail" ? <div className={`nav-item ${pageInfo === "detail" ? "active" : ""}`}>🔍 상세페이지</div> : ""}
                 {pageInfo === "edit" ? <div className={`nav-item ${pageInfo === "edit" ? "active" : ""}`}>✒️ 수정페이지</div>: ""}
                 <div className={`nav-item ${pageInfo === "login" ? "active" : ""}`} onClick={()=>nav("/login")}>🔓 로그인</div>
-                <div className={`nav-item ${pageInfo === "mypage" ? "active" : ""}`} onClick={()=>nav(`/mypage/1`)}>👤 마이페이지</div>
+                <div className={`nav-item ${pageInfo === "mypage" ? "active" : ""}`} onClick={()=>nav(`/mypage/admin`)}>👤 마이페이지</div>
             </nav>
         </div>
     ); 

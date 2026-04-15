@@ -3,6 +3,7 @@ import PostItem from "./PostItem";
 import Error from "./Error";
 import NotLogin from "./NotLogin";
 import { useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { BoardDataContext } from "./Context";
 
 const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
@@ -11,17 +12,17 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
         setPageInfo("mypage"); 
     }, [setPageInfo]);
 
+    const {userId} = useParams();  
+    const state = useContext(BoardDataContext);
+
+    if(!state){
+        return <Error/>
+    }
+
     if(!isLogin){
         return (
             <NotLogin></NotLogin>
         )
-    }
-
-    const userId = localStorage.getItem("userId"); 
-    const state = useContext(BoardDataContext); 
-
-    if(!state){
-        return <Error/>
     }
 
     const filteredData = state.filter((item)=>{

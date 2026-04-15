@@ -12,7 +12,7 @@ const formattedDate = ()=>{
     return `${year}-${month}-${date}`; 
 }
 
-const Write = ({setPageInfo})=>{
+const Write = ({setPageInfo, isLogin})=>{
     const {onCreate } = useContext(BoardDispatchContext); 
     const nav = useNavigate(); 
     const titleRef = useRef(); 
@@ -60,7 +60,8 @@ const Write = ({setPageInfo})=>{
 
     return (
         <div className="Write">
-            <section id="write" className="page-content">
+            {isLogin? (
+                <section id="write" className="page-content">
                 <h1 className="mb-30">새 글 작성</h1>
                 <div className="grid-2">
                     <div className="ui-card">
@@ -89,6 +90,10 @@ const Write = ({setPageInfo})=>{
                     </aside>
                 </div>
             </section>
+            ): (
+                <p>로그인 후 사용 가능합니다</p>
+            )}
+            
         </div>
     ); 
 }
