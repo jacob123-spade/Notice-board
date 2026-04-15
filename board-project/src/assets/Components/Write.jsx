@@ -17,7 +17,8 @@ const Write = ({setPageInfo, isLogin})=>{
     const nav = useNavigate(); 
     const titleRef = useRef(); 
     const contentRef = useRef();  
-    const userName = JSON.parse(localStorage.getItem("userInfo")).nickName; 
+    const storedUser = localStorage.getItem("userInfo"); 
+    const userName = storedUser ? JSON.parse(storedUser).nickName : null; 
 
     useEffect(()=>{
         setPageInfo("write"); 
