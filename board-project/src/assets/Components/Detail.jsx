@@ -1,7 +1,7 @@
 import "./Detail.css"; 
 import { useNavigate, useParams } from "react-router-dom";
-import {BoardDataContext, CommentDataContext} from "./Context"; 
-import { useContext, useEffect } from "react";
+import {BoardDataContext, CommentDataContext, CommentDispatchContext } from "./Context"; 
+import { useContext, useEffect, useRef, useState } from "react";
 import CommentItem from "./CommentItem";
 
 
@@ -9,6 +9,16 @@ const Detail = ({setPageInfo, login})=>{
     const {id} = useParams(); 
     const data = useContext(BoardDataContext); 
     const comments = useContext(CommentDataContext); 
+    const onCreateComment = useContext(CommentDispatchContext);
+    const storedUser = localStorage.getItem("userInfo"); 
+    const currentUser = JSON.parse(storedUser).id || null; 
+    const textRef = useRef(); 
+    const [commentInfo, setCommentInfo] = useState({
+        content: "", 
+        writer: currentUser,
+        date: new Date().toLocaleDateString(), 
+    }); 
+
     const initData = data.find((item)=>{
         return String(item.id) === String(id); 
     }); 
@@ -27,6 +37,31 @@ const Detail = ({setPageInfo, login})=>{
     if(!initData){
         return <div style={{padding: "20px"}}>존재하지 않는 게시글입니다</div>
     }
+
+    const onChangeCommentInfo = (e)=>{
+        const {name, value} = e.target; 
+
+        setCommentInfo({
+            ...commentInfo, 
+            [name]: value,  
+        }); 
+    }
+
+    const onRegisterComment = ()=>{
+        const commentObj = {...commentInfo, parentId: null, postId: Number(id)};
+        if(commentInfo.content.trim()===""){
+            textRef.current.focus(); 
+            return; 
+        }
+        onCreateComment(commentObj); 
+        setCommentInfo({
+            ...commentInfo, 
+            content: "", 
+        }); 
+
+        console.log(comments); 
+    }
+
 
     return (
         <div className="Detail">
@@ -58,10 +93,14 @@ const Detail = ({setPageInfo, login})=>{
                         <textarea 
                             className="comment-textarea" 
                             placeholder={login ? "따뜻한 댓글을 남겨주세요" : "로그인 후 사용 가능합니다"}
+                            name="content"
+                            value={commentInfo.content}
+                            onChange={onChangeCommentInfo}
                             disabled={!login}
+                            ref={textRef}
                         ></textarea>
                         <div className="comment-submit-wrapper">
-                            {login ? <button className="ui-btn btn-primary">등록</button> : ""}
+                            {login ? <button className="ui-btn btn-primary" onClick={onRegisterComment}>등록</button> : ""}
                         </div>
                     </div>
 

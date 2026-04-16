@@ -152,14 +152,14 @@ function App() {
     })
   }
 
-  const onCreateComment = (postId, parentId, content, writer)=>{
+  const onCreateComment = (commentObj)=>{
     const newComment = {
       id: commentIdRef.current++,
-      postId: postId, 
-      parentId: parentId, 
-      content: content, 
-      writer: writer, 
-      date: new Date().getTime(), 
+      postId: commentObj.postId, 
+      parentId: commentObj.parentId, 
+      content: commentObj.content, 
+      writer: commentObj.writer, 
+      date: new Date().getTime(),
     }
 
     setComments([newComment, ...comments]); 

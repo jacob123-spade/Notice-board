@@ -22,10 +22,13 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
         return <Error/>
     }
 
-    if(!isLogin || !currentUser){
-        nav("/notlogin");  
-        return; 
-    }
+    useEffect(()=>{
+        if(!isLogin || !currentUser){
+            nav("/notlogin");  
+            return; 
+        }
+    }, [isLogin, currentUser, nav]);
+    
 
     const filteredData = state.filter((item)=>{
         return item.writer === userId;  
@@ -94,6 +97,23 @@ export default MyPage;
 
 2. localStorage에 유저 아이디를 생성해준 것은 증명서 같은 것이다. -> 현재 로그인하고 있는 사람이 누구인지를 밝혀주는 기능이다. 
 나머지 DB관리는 BE의 영역이다. 
+
+3. useEffect(()=>{
+        if(!isLogin || !currentUser){
+            nav("/notlogin");  
+            return; 
+        }
+    }, [isLogin, currentUser, nav]);
+
+코드를 이렇게 작성해주는 이유는 리액트는 랜더링과 사이드 이펙트(페이지 이동, 데이터 요청 등)을 엄격하게 구분해서 화면을 그리는 중에 갑자기 
+페이지를 이동시키게 되면 React.useEffect(), not when your component is first rendered.이런 오류를 띄우기 때문이다. 
+그래서 useEffect를 이용하면 이 문제가 해결이 되는데 그 이유는 이 hook은 화면이 브라우저에 다 그려진 직후에 실행되도록 예약된 상자이기 때문이다. 
+
+컴퓨터가 내 컴포넌트를 실행하는 순서 
+
+1. Rendering 
+2. Commit -> 리액트가 계산된 결과를 실제 브라우저 DOM에 반영(사용자 눈에 화면이 보인다)
+3. Passive Effects : useEffect 안에 들어있는 코드를 실행합니다.
 
 
 */
