@@ -1,6 +1,6 @@
 import "./Detail.css"; 
 import { useNavigate, useParams } from "react-router-dom";
-import {BoardDataContext, CommentDataContext, CommentDispatchContext } from "./Context"; 
+import {BoardDataContext, BoardDispatchContext, CommentDataContext, CommentDispatchContext } from "./Context"; 
 import { useContext, useEffect, useRef, useState } from "react";
 import CommentItem from "./CommentItem";
 
@@ -8,6 +8,7 @@ import CommentItem from "./CommentItem";
 const Detail = ({setPageInfo, login})=>{ 
     const {id} = useParams(); 
     const data = useContext(BoardDataContext); 
+    const {onUpdate} = useContext(BoardDispatchContext); 
     const comments = useContext(CommentDataContext); 
     const onCreateComment = useContext(CommentDispatchContext);
     const storedUser = localStorage.getItem("userInfo"); 
@@ -18,6 +19,7 @@ const Detail = ({setPageInfo, login})=>{
         writer: currentUser,
         date: new Date().toLocaleDateString(), 
     }); 
+    const [isLiked, setIsLiked] = useState(false); 
 
     const initData = data.find((item)=>{
         return String(item.id) === String(id); 
@@ -62,6 +64,30 @@ const Detail = ({setPageInfo, login})=>{
         console.log(comments); 
     }
 
+    let [likeCount, setLikeCount] = useState(initData.numRecommend); 
+    const onLikeClick = ()=>{
+        if(!login){
+            alert("로그인 후에 이용 가능합니다."); 
+            nav("/login"); 
+            return; 
+        }
+        if(isLiked){
+            setIsLiked(false); 
+            setLikeCount(likeCount-=1); 
+        }
+
+        else{
+            setIsLiked(true); 
+            setLikeCount(likeCount+=1); 
+        }
+
+        const updatedData = {
+            ...initData, 
+            numRecommend: likeCount,
+        }
+
+        onUpdate(updatedData); 
+    }
 
     return (
         <div className="Detail">
@@ -104,6 +130,16 @@ const Detail = ({setPageInfo, login})=>{
                         </div>
                     </div>
 
+                    <div className="recommend-section">
+                        <button 
+                            className={`recommend-btn ${isLiked ? "active" : ""}`} 
+                            onClick={onLikeClick}>
+                            <span className="thumb-icon">👍</span>
+                            <span className="recommend-label">추천</span>
+                            <span className="recommend-count">{likeCount}</span>
+                        </button>
+                    </div>
+
                    {initCommentData.length === 0 ? (
                     <p>첫번째 댓글을 남겨보세요 </p> 
                    ): (initCommentData.map((item)=>{
@@ -129,5 +165,13 @@ URL로 전달되는 값은 무조건 **문자열**이다. 원본 데이터의 ID
 
 3. useParams는 App.jsx에서 설정한 이름과 Detail.jsx에서 부르는 파라미터 명이 서로 다르면 
 해당 값이 undefined로 찍히게 된다. 
+
+4. 리액트에서는 변수를 let, const로 지정해놓으면 변수를 바꿔도 화면에는 랜더링이 안된다. 그 이유는 재랜더링을 변수가 바꼈다고 자동으로 
+하지 않기 때문이다. 그래서 useState를 이용해서 변수관리를 해줘야 한다. 
+
+5. ++, --는 각각 +=1, -=1의 의미를 담고 있어서 const에서는 사용이 불가하다. -> 주의 할것 
+
+6. 유저당 한번의 좋아요를 누르게 하기 위해서는 데이터 구조를 좀 변경해줘야 한다. -> 
+데이터 상에서 누가 좋아요를 눌렀는지를 배열로 관리해주도록 하겠다. 
 
 */

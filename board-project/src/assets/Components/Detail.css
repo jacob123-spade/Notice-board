@@ -126,3 +126,64 @@
     text-decoration: underline;
     color: #000;
 }
+
+/* 추천 섹션 컨테이너 */
+.recommend-section {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+/* 따봉 버튼 기본 스타일 */
+.recommend-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: 2px solid #e0e6ed;
+    border-radius: 50px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: 600;
+}
+
+/* 마우스 올렸을 때 */
+.recommend-btn:hover {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+    color: #1d4ed8;
+}
+
+/* 활성화 상태 (따봉 완료!) */
+.recommend-btn.active {
+    background-color: #3b82f6;
+    border-color: #2563eb;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* 따봉 아이콘 애니메이션 */
+.thumb-icon {
+    font-size: 1.3rem;
+    transition: transform 0.2s ease;
+}
+
+/* 클릭하는 순간 띠용~ 하고 올라가는 효과 */
+.recommend-btn:active .thumb-icon {
+    transform: translateY(-10px) scale(1.2);
+}
+
+/* 숫자 강조 */
+.recommend-count {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.recommend-btn.active .recommend-count {
+    background-color: rgba(255, 255, 255, 0.2);
+}
