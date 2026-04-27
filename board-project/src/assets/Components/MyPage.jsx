@@ -11,11 +11,11 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
     useEffect(()=>{
         setPageInfo("mypage"); 
     }, [setPageInfo]);
-
-    const {userId} = useParams();  
+  
     const state = useContext(BoardDataContext);
     const storedUser = localStorage.getItem("userInfo"); 
     const currentUser = storedUser ? JSON.parse(storedUser) : null; 
+    const userId = currentUser.nickName; 
     const nav = useNavigate(); 
 
     if(!state){
