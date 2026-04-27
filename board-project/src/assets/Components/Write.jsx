@@ -54,7 +54,8 @@ const Write = ({setPageInfo, isLogin})=>{
             userName, 
             formattedDate(), 
             0, 
-            writes.content, 
+            writes.content,
+            [] 
         ); 
 
         nav("/"); 

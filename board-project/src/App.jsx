@@ -130,7 +130,7 @@ function App() {
   const [comments, setComments] = useState(initialComment); 
   const commentIdRef = useRef(4); 
 
-  const onCreate = (title, writer, date, numRecommend, content)=>{
+  const onCreate = (title, writer, date, numRecommend, content, likedUsers)=>{
     dispatch({
       type: "CREATE", 
       data: {
@@ -140,6 +140,7 @@ function App() {
         date: date, 
         numRecommend: numRecommend, 
         content: content,
+        likedUsers: likedUsers, 
       }
     }); 
   }
