@@ -11,8 +11,9 @@ const Detail = ({setPageInfo, login})=>{
     const {onUpdate} = useContext(BoardDispatchContext); 
     const comments = useContext(CommentDataContext); 
     const onCreateComment = useContext(CommentDispatchContext);
+    {/* 로그아웃상태일 시에 애러가 발생할 수 있어 chaining을 사용했다. */}
     const storedUser = localStorage.getItem("userInfo"); 
-    const currentUser = JSON.parse(storedUser).id || null; 
+    const currentUser = JSON.parse(storedUser)?.id || null; 
     const textRef = useRef(); 
     const [commentInfo, setCommentInfo] = useState({
         content: "", 

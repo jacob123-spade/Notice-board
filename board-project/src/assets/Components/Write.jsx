@@ -13,7 +13,7 @@ const formattedDate = ()=>{
 }
 
 const Write = ({setPageInfo, isLogin})=>{
-    const {onCreate } = useContext(BoardDispatchContext); 
+    const {onCreate} = useContext(BoardDispatchContext); 
     const nav = useNavigate(); 
     const titleRef = useRef(); 
     const contentRef = useRef();  
