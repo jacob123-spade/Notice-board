@@ -1,17 +1,17 @@
 import './App.css'; 
 import { Routes, Route} from "react-router-dom"; 
 import { useReducer, useRef, useState } from 'react';
-import { BoardDataContext, BoardDispatchContext, CommentDataContext, CommentDispatchContext } from './assets/Components/Context';
-import SideBar from './assets/Components/SideBar';
-import Home from './assets/Components/Home';
-import Write from './assets/Components/Write';
-import Detail from './assets/Components/Detail';
-import Edit from './assets/Components/Edit'; 
-import MyPage from './assets/Components/MyPage';
-import Login from './assets/Components/Login';
-import SignUp from './assets/Components/SignUp';
-import NotFound from './assets/Components/NotFound'; 
-import NotLogin from './assets/Components/NotLogin';
+import { BoardDataContext, BoardDispatchContext, CommentDataContext, CommentDispatchContext } from './Components/Context';
+import SideBar from './Components/SideBar';
+import Home from './Components/Home';
+import Write from './Components/Write';
+import Detail from './Components/Detail';
+import Edit from './Components/Edit'; 
+import MyPage from './Components/MyPage';
+import Login from './Components/Login';
+import SignUp from './Components/SignUp';
+import NotFound from './Components/NotFound'; 
+import NotLogin from './Components/NotLogin';
 
 const mockPosts = [
     { 
