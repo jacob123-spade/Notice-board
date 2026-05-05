@@ -32,7 +32,6 @@ const Home = ({setPageInfo})=>{
         }
 
         setFilterQuery(search); 
-        setSearch(""); 
     }
 
     const filteredData = !filterQuery ? data : data.filter((item)=>{

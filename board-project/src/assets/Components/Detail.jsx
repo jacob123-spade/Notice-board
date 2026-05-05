@@ -5,7 +5,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import CommentItem from "./CommentItem";
 
 
-const Detail = ({setPageInfo, login})=>{ 
+const Detail = ({setPageInfo, islogin})=>{ 
     const {id} = useParams(); 
     const data = useContext(BoardDataContext); 
     const {onUpdate} = useContext(BoardDispatchContext); 
@@ -73,14 +73,14 @@ const Detail = ({setPageInfo, login})=>{
     let [likeCount, setLikeCount] = useState(initData.numRecommend); 
 
     const onLikeClick = ()=>{
-        if(!login){
+        if(!islogin){
             alert("로그인 후에 이용 가능합니다."); 
             nav("/login"); 
             return; 
         }
 
         const nextIsLiked = !isLiked; 
-        const nextLikeCount = isLiked ? likeCount -1 : likeCount+1; 
+        const nextLikeCount = isLiked ? likeCount-1 : likeCount+1;
         const nextLikedUsers = isLiked ? likedUsersLst.filter((user)=> user !==currentUser) : [...likedUsersLst, currentUser]; 
 
         setIsLiked(nextIsLiked); 
@@ -122,21 +122,21 @@ const Detail = ({setPageInfo, login})=>{
                     <div className="comment-input-area mb-30">
                         <textarea 
                             className="comment-textarea" 
-                            placeholder={login ? "따뜻한 댓글을 남겨주세요" : "로그인 후 사용 가능합니다"}
+                            placeholder={islogin ? "따뜻한 댓글을 남겨주세요" : "로그인 후 사용 가능합니다"}
                             name="content"
                             value={commentInfo.content}
                             onChange={onChangeCommentInfo}
-                            disabled={!login}
+                            disabled={!islogin}
                             ref={textRef}
                         ></textarea>
                         <div className="comment-submit-wrapper">
-                            {login ? <button className="ui-btn btn-primary" onClick={onRegisterComment}>등록</button> : ""}
+                            {islogin ? <button className="ui-btn btn-primary" onClick={onRegisterComment}>등록</button> : ""}
                         </div>
                     </div>
 
                     <div className="recommend-section">
                         <button 
-                            className={`recommend-btn ${isLiked ? "active" : ""}`} 
+                            className={`recommend-btn ${(isLiked && currentUser && likedUsersLst.includes(currentUser)) ? "active" : ""}`} 
                             onClick={onLikeClick}>
                             <span className="thumb-icon">👍</span>
                             <span className="recommend-label">추천</span>
@@ -177,5 +177,8 @@ URL로 전달되는 값은 무조건 **문자열**이다. 원본 데이터의 ID
 
 6. 유저당 한번의 좋아요를 누르게 하기 위해서는 데이터 구조를 좀 변경해줘야 한다. -> 
 데이터 상에서 누가 좋아요를 눌렀는지를 배열로 관리해주도록 하겠다. 
+
+7. 상태 동기화와 조건부 렌더링 최적화: 로컬 상태(isLiked)와 외부 데이터(currentUser, initData)가 불일치할 때 발생하는 UI 버그를 인지하고, 
+이를 해결하기 위해 렌더링 시점의 최신 데이터를 기준으로 조건식을 재설계했다.
 
 */

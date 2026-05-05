@@ -182,7 +182,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home setPageInfo={setPageInfo}></Home>}></Route>
                 <Route path="/write" element={<Write setPageInfo={setPageInfo} isLogin={isLogin}></Write>}></Route>
-                <Route path="/detail/:id" element={<Detail setPageInfo={setPageInfo} login={isLogin}></Detail>}></Route>
+                <Route path="/detail/:id" element={<Detail setPageInfo={setPageInfo} islogin={isLogin}></Detail>}></Route>
                 <Route path="/edit/:id" element={<Edit setPageInfo={setPageInfo}></Edit>}></Route>
                 <Route path="/login" element={<Login setPageInfo={setPageInfo} setIsLogin={setIsLogin}></Login>}></Route>
                 <Route path="/signUp" element={<SignUp setIsLogin={setIsLogin}></SignUp>}></Route>
