@@ -66,8 +66,6 @@ const Detail = ({setPageInfo, islogin})=>{
             ...commentInfo, 
             content: "", 
         }); 
-
-        console.log(comments); 
     }
 
     let [likeCount, setLikeCount] = useState(initData.numRecommend); 
@@ -146,9 +144,20 @@ const Detail = ({setPageInfo, islogin})=>{
 
                    {initCommentData.length === 0 ? (
                     <p>첫번째 댓글을 남겨보세요 </p> 
-                   ): (initCommentData.map((item)=>{
-                    return <CommentItem key={item.id} {...item}></CommentItem>
-                   }))}
+                   ): (
+                    /*
+                    댓글을 계층적으로 짜주기 위해서 이렇게 짰다. 우선은 메인 댓글을 먼저 랜더링 해주고 그 다음 대댓글을 랜더링 해주는 식으로 짜주었다. 
+                    */ 
+                    initCommentData.filter((item)=> item.parentId === null).map((parent)=>(
+                    <div key={parent.id} className="comment-section">
+                        <CommentItem {...parent} isLogin={islogin} replyId={parent.id}></CommentItem>
+
+                        {/*대댓글 랜더링 영역*/}
+                        {initCommentData.filter((item)=>item.parentId===parent.id).map((child) => {
+                            return <CommentItem key={child.id} {...child} isLogin={islogin} replyId={child.id}></CommentItem>
+                        })}
+                    </div>
+                    )))}
                     
                 </div>
             </section>
@@ -181,4 +190,6 @@ URL로 전달되는 값은 무조건 **문자열**이다. 원본 데이터의 ID
 7. 상태 동기화와 조건부 렌더링 최적화: 로컬 상태(isLiked)와 외부 데이터(currentUser, initData)가 불일치할 때 발생하는 UI 버그를 인지하고, 
 이를 해결하기 위해 렌더링 시점의 최신 데이터를 기준으로 조건식을 재설계했다.
 
+8. 댓글들을 계층별로 즉 대댓글은 해당 댓글의 자식으로 들어가게 하려면 랜더링 필더링을 거쳐야 한다. => 이 부분 코드는 나중에 다시 볼것 배울 점이 많음. 
+필터링 후 매핑을 바로 할 수 있으며 매핑 내부에서 다시 필터링과 매핑을 반복 할 수 있다. => Idea
 */

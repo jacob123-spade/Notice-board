@@ -4,3 +4,62 @@
     flex-direction: column; 
     gap: 10px; 
 }
+
+/* 대댓글 입력 영역 전체 컨테이너 */
+.reply-section {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f8fafc; /* 부모 댓글과 구분되는 아주 연한 그레이/블루 */
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    gap: 10px;
+    animation: slideDown 0.3s ease-out; /* 등장 애니메이션 */
+}
+
+/* 대댓글 입력창 (Input) */
+.reply-section input.reply {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.reply-section input.reply:focus {
+    border-color: #3b82f6;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 대댓글 등록 버튼 (필요할 것 같아 미리 디자인했어요) */
+.btn-reply-submit {
+    padding: 8px 16px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.btn-reply-submit:hover {
+    background-color: #2563eb;
+}
+
+/* 등장 애니메이션 효과 */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

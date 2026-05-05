@@ -76,3 +76,112 @@
     order: -1; /* 모바일에서는 AI 섹션이 위로 오게 할 수도 있음 */
   }
 }
+
+/* Write.css 추가 */
+
+.ai-analysis-section {
+    background-color: #f0f4f8; /* 약간 더 차분하고 기술적인 느낌의 배경색 */
+    border: 1px solid #d1d9e6;
+    color: #333;
+}
+
+.ai-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.analysis-metrics {
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.metric-item {
+    text-align: center;
+}
+
+.metric-item .label {
+    display: block;
+    font-size: 0.8rem;
+    color: #6c7a89;
+    margin-bottom: 5px;
+}
+
+.metric-item .value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--secondary); /* 메인 컬러 */
+}
+
+.metric-item .unit {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #6c7a89;
+}
+
+.ai-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.ai-status .label {
+    font-size: 0.9rem;
+    color: #6c7a89;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.status-badge.green {
+    background-color: #e6f7ed;
+    color: #27ae60;
+}
+
+.status-badge.green .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #27ae60;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.analysis-results {
+    margin-top: 30px;
+}
+
+.analysis-results h4 {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.analysis-results ul {
+    list-style: none;
+    padding: 0;
+}
+
+.analysis-results li {
+    font-size: 0.9rem;
+    color: #6c7a89;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.analysis-results li.pass::before {
+    content: "✔️";
+    position: absolute;
+    left: 0;
+    color: #27ae60;
+}

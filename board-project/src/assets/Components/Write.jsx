@@ -86,11 +86,46 @@ const Write = ({setPageInfo, isLogin})=>{
                             <button className="ui-btn btn-primary" onClick={onClickEnrolled}>등록하기</button>
                         </div>
                     </div>
-                    <aside className="ui-card ai-section">
-                        <h3 className="c-secondary mb-30">🤖 AI 작성 도우미</h3>
-                        <p className="c-light mt-15">현재 문맥을 분석하여 최적의 키워드를 제안합니다.</p>
-                        <div className="ai-badge">#React #Project</div>
-                    </aside>
+                    <aside className="ui-card ai-analysis-section">
+                            <h3 className="c-secondary mb-30">
+                                <span className="ai-icon">🤖</span>
+                                AI 실시간 문맥 분석
+                            </h3>
+                            
+                            <div className="analysis-metrics">
+                                <div className="metric-item">
+                                    <span className="label">글자 수</span>
+                                    {/* 실시간 데이터 수치 강조 */}
+                                    <strong className="value">
+                                        {writes.content.length} <span className="unit">자</span>
+                                    </strong>
+                                </div>
+                                <div className="metric-item">
+                                    <span className="label">예상 읽기 시간</span>
+                                    <strong className="value">
+                                        {/* 예시 수치, 실제 로직 추가 가능 */}
+                                        ~1 <span className="unit">분</span>
+                                    </strong>
+                                </div>
+                            </div>
+                            
+                            <div className="ai-status">
+                                <span className="label">분석 상태</span>
+                                <span className="status-badge green">
+                                    <span className="dot"></span>
+                                    Ready
+                                </span>
+                            </div>
+                            
+                            <div className="analysis-results">
+                                <h4>✅ 가이드라인 준수</h4>
+                                <ul>
+                                    <li className="pass">타인 존중</li>
+                                    <li className="pass">주제 적합성</li>
+                                    <li className="pass">미디어 임베딩</li>
+                                </ul>
+                            </div>
+                        </aside>
                 </div>
             </section>
             ): (
