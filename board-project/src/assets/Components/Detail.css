@@ -6,7 +6,35 @@
     display: flex; 
     flex-direction: column; 
     gap: 40px; 
-    height: 60vh; 
+    min-height: 400px;
+    height: auto; 
+}
+
+.detail-body {
+    /* 1. 줄바꿈(\n)과 연속된 공백을 그대로 표현 */
+    white-space: pre-wrap; 
+    
+    /* 2. 단어가 너무 길어 영역을 벗어나는 것 방지 */
+    word-break: break-all; 
+    
+    /* 3. 줄 간격을 넓혀 가독성 향상 */
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #334155;
+    
+    /* 4. 내용이 너무 길어질 때를 대비한 최대 높이와 스크롤 (선택사항) */
+    max-height: 800px; 
+    overflow-y: auto; 
+    padding-right: 10px; /* 스크롤바와 글자 사이 여백 */
+}
+
+/* 커스텀 스크롤바 디자인 */
+.detail-body::-webkit-scrollbar {
+    width: 6px;
+}
+.detail-body::-webkit-scrollbar-thumb {
+    background-color: #e2e8f0;
+    border-radius: 10px;
 }
 
 .Detail .btn-secondary{
@@ -187,3 +215,19 @@
 .recommend-btn.active .recommend-count {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
+/*
+
+배운점
+
+1. white-space: 이 속성은 html에서 연속된 공백이나 줄바꿈을 공백으로 병합해버리는 것을 제어해주는 속서이다. 
+이 속성을 적용하기 전 긴 글이 뭉터기져서 화면에 랜더링 되거나 줄바꿈 돼어 글의 가독성을 훼손했었다. 그래서 추가해줬다. 
+
+속성값,공백/줄바꿈 병합,자동 줄바꿈 (Wrapping),용도
+normal (기본값),병합함 (한 칸으로),함 (박스 끝에서 내려감),일반적인 텍스트
+nowrap,병합함,안 함,"버튼 텍스트, 한 줄 고정 메뉴"
+pre,보존함,안 함,코드를 그대로 보여줄 때
+pre-wrap,보존함,함,게시판 본문 (가장 추천!)
+
+
+*/

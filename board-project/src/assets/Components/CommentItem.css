@@ -1,0 +1,6 @@
+.comment-item{ 
+    white-space: pre-wrap; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+}

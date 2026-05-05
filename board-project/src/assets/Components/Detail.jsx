@@ -111,10 +111,6 @@ const Detail = ({setPageInfo, login})=>{
                     <div className="detail-body">
                         {initData.content}
                     </div>
-                    <div className="ui-card ai-section mt-40">
-                        <h4 className="mb-30">🔗 AI 추천 연관글</h4>
-                        <p className="c-primary tr-link">👉 오픈소스 기여 시작하기 가이드</p>
-                    </div>
                     <div className="button-section">
                         <button className="ui-btn btn-secondary" onClick={()=> nav("/")}>목록</button>
                     </div>

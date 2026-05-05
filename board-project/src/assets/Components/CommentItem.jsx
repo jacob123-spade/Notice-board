@@ -1,3 +1,5 @@
+import './CommentItem.css'; 
+
 const CommentItem = ({parentId, content, writer, date})=>{
     return (
         <div className="comment-list">
