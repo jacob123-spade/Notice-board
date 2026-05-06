@@ -7,7 +7,6 @@ const CommentItem = ({replyId, postId, parentId, content, writer, date, isLogin}
     const [isClickReply, setIsClickReply] = useState(false); 
     const [replyValue, setReplyValue] = useState(""); 
     const replyRef = useRef(); 
-    const parentRef = useRef(1); 
     const onCreateComment = useContext(CommentDispatchContext); 
     const storedUser = localStorage.getItem("userInfo");
     const currentUser = JSON.parse(storedUser)?.id || null; 
@@ -60,7 +59,7 @@ const CommentItem = ({replyId, postId, parentId, content, writer, date, isLogin}
                         onChange={onChangeReply}
                         type="text" 
                         className="reply" 
-                        placeholder='답글을 입력하세요'
+                        placeholder={isLogin ? "답글을 입력하세요" : "로그인 후 이용 가능합니다"}
                         ref={replyRef}
                         disabled={!isLogin}
                         />

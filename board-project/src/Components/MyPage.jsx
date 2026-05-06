@@ -13,24 +13,28 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
     }, [setPageInfo]);
   
     const state = useContext(BoardDataContext);
+    const nav = useNavigate(); 
     {/* 로그아웃상태일 시에 애러가 발생할 수 있어 chaining을 사용했다. */}
     const storedUser = localStorage.getItem("userInfo"); 
-    const currentUser = storedUser ? JSON.parse(storedUser) : null; 
-    const userId = currentUser?.nickName; 
-    {/*------------------------------------------------------*/}
-    const nav = useNavigate(); 
-
-    if(!state){
-        return <Error/>
-    }
-
+    const currentUser = storedUser ? JSON.parse(storedUser) : null;
+    
     useEffect(()=>{
         if(!isLogin || !currentUser){
             nav("/notlogin");  
             return; 
         }
     }, [isLogin, currentUser, nav]);
+
+    if(!isLogin || !currentUser){
+        return null; 
+    }
+
+    const userId = currentUser?.nickName; 
+    {/*------------------------------------------------------*/}
     
+    if(!state){
+        return <Error/>
+    }
 
     const filteredData = state.filter((item)=>{
         return item.writer === userId;  
@@ -45,8 +49,7 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
    const LogOut = ()=>{
     //유저아이디 삭제해주기 
     localStorage.removeItem("userInfo"); 
-    setIsLogin(false); 
-    nav("/"); 
+    setIsLogin(false);
    }
 
     return (
@@ -124,6 +127,8 @@ const userId = currentUser.nickName;
 
 여기에서 걸림 왜냐하면 로그아웃을 하면 currentUser = null이 되는데 userId가 null.nickName으로 저장되기 때문이다. 즉 
 페이지가 넘어가기 전에 해당 페이지가 다시 보여지면서 애러가 발생 
+
+5. 모든 hook은 모두 최상단에 배치해야 한다. 그렇지 않으면 예외 처리시에 hook의 개수가 변해서 애러가 날 수가 있다. 
 
 
 
