@@ -10,7 +10,7 @@ const Detail = ({setPageInfo, islogin})=>{
     const data = useContext(BoardDataContext); 
     const {onUpdate} = useContext(BoardDispatchContext); 
     const comments = useContext(CommentDataContext); 
-    const onCreateComment = useContext(CommentDispatchContext);
+    const {onCreateComment}= useContext(CommentDispatchContext);
     {/* 로그아웃상태일 시에 애러가 발생할 수 있어 chaining을 사용했다. */}
     const storedUser = localStorage.getItem("userInfo"); 
     const currentUser = JSON.parse(storedUser)?.id || null; 

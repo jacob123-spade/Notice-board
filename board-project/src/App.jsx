@@ -81,7 +81,7 @@ const initialComment = [
     parentId: null, 
     content: "이 내용으로 많이 해주세요!!", 
     writer: "admin", 
-    date: new Date("2023-10-22").getTime(), 
+    date: new Date("2023-10-22").toLocaleDateString(), 
   }, 
 
   {
@@ -91,7 +91,7 @@ const initialComment = [
     parentId: 1, //1번 댓글의 댓글 즉 대댓글 
     content: "공감합니다.", 
     writer: "hamin", 
-    date: new Date("2023-10-25").getTime(), 
+    date: new Date("2023-10-25").toLocaleDateString(), 
   }, 
 
   {
@@ -99,8 +99,8 @@ const initialComment = [
     postId: 1023, 
     parentId: null, 
     content: "이런 글 이제 식상", 
-    writer: "Jack", 
-    date: new Date("2025-03-22").getTime(), 
+    writer: "Jack", //nickName으로 가겠다. 
+    date: new Date("2025-03-22").toLocaleDateString(), 
   }, 
 
 ]
@@ -122,12 +122,26 @@ const reducer = (state, action)=>{
 
 }
 
+const commentReducer = (comments, action)=>{
+  switch(action.type){
+    case "CREATE": 
+      return [...comments, action.data]; 
+
+    case "DELETE": 
+      return comments.filter((comment)=>comment.postId !== action.postId); 
+
+    default: 
+      return comments; 
+    
+  }
+}
+
 function App() {
   const [state, dispatch] = useReducer(reducer, mockPosts); 
   const [pageInfo, setPageInfo] = useState("home"); //내가 현재 들어간 페이지 정보를 반환 -> SideBar 디자인을 위해서 사용 
   const idRef = useRef(1028); 
   const [isLogin, setIsLogin] = useState(false); 
-  const [comments, setComments] = useState(initialComment); 
+  const [comments, commentDispatch] = useReducer(commentReducer, initialComment) 
   const commentIdRef = useRef(4); 
 
   const onCreate = (title, writer, date, numRecommend, content, likedUsers)=>{
@@ -169,14 +183,24 @@ function App() {
       date: new Date().getTime(),
     }
 
-    setComments([...comments, newComment]); 
+    commentDispatch({
+      type: "CREATE", 
+      data: newComment,
+    });   
+  }; 
+
+  const onDeleteComment = (postId)=>{
+    commentDispatch({
+      type: "DELETE", 
+      postId: postId, 
+    }); 
   }; 
 
   return (
     <BoardDataContext.Provider value={state}>
-      <BoardDispatchContext.Provider value={{onCreate, onDelete, onUpdate }}>
+      <BoardDispatchContext.Provider value={{onCreate, onDelete, onUpdate}}>
         <CommentDataContext.Provider value={comments}>
-          <CommentDispatchContext.Provider value={onCreateComment}>
+          <CommentDispatchContext.Provider value={{onCreateComment, onDeleteComment}}>
             <div className='App'>
               <SideBar pageInfo={pageInfo}></SideBar>
               <Routes>

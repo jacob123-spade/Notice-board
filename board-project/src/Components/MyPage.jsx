@@ -4,7 +4,7 @@ import Error from "./Error";
 import NotLogin from "./NotLogin";
 import { useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { BoardDataContext } from "./Context";
+import { BoardDataContext, CommentDataContext } from "./Context";
 
 const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
 
@@ -13,6 +13,7 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
     }, [setPageInfo]);
   
     const state = useContext(BoardDataContext);
+    const comments = useContext(CommentDataContext); 
     const nav = useNavigate(); 
     {/* 로그아웃상태일 시에 애러가 발생할 수 있어 chaining을 사용했다. */}
     const storedUser = localStorage.getItem("userInfo"); 
@@ -38,6 +39,10 @@ const MyPage = ({setPageInfo, isLogin, setIsLogin})=>{
 
     const filteredData = state.filter((item)=>{
         return item.writer === userId;  
+    }); 
+
+    const filteredComment = comments.filter((comment)=>{
+        return comment.writer === userId; 
     }); 
 
    const recommendList = filteredData.map((item)=> Number(item.numRecommend) || 0);

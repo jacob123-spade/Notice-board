@@ -1,12 +1,14 @@
 import "./Edit.css"; 
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext, useRef } from "react";
-import { BoardDataContext, BoardDispatchContext } from "./Context";
+import { BoardDataContext, BoardDispatchContext, CommentDataContext, CommentDispatchContext } from "./Context";
 
 const Edit = ({setPageInfo})=>{
     const { id } = useParams(); 
     const datas = useContext(BoardDataContext); 
     const {onUpdate, onDelete} = useContext(BoardDispatchContext); 
+    const {onDeleteComment} = useContext(CommentDispatchContext); 
+    const comments = useContext(CommentDataContext); 
     const initData = datas.find((data)=>{
         return String(data.id) === String(id); 
     }); 
@@ -61,7 +63,9 @@ const Edit = ({setPageInfo})=>{
 
     const onDeleteBoard = ()=>{
         if(window.confirm("정말 게시글을 삭제하시겠습니까?")){
-            onDelete(Number(id)); 
+            onDelete(Number(id));
+            onDeleteComment(Number(id)); 
+            console.log(comments); 
             nav("/"); 
         }
     }

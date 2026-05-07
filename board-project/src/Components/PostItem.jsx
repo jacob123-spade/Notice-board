@@ -1,14 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { BoardDispatchContext } from "./Context";
+import { BoardDispatchContext, CommentDataContext, CommentDispatchContext} from "./Context";
 
 const PostItem = ({id,title, date})=>{
     const nav = useNavigate();
     const {onDelete} = useContext(BoardDispatchContext); 
-
+    const {onDeleteComment} = useContext(CommentDispatchContext); 
     const onDeletePost = ()=>{
         if(window.confirm("정말 이 글을 삭제하시겠습니까?")){
             onDelete(id); 
+            // 글을 지웠는데 해당 글에 남겨진 댓글을 지우지 않으면 유령 댓글들이 생기게 된다. 이걸 해결해주기 위해서 해당 글의 아이디를 갖는 댓글도 삭제해줘야 한다.
+            onDeleteComment(id);  
         }
     }
 
