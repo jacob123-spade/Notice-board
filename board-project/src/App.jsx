@@ -163,7 +163,10 @@ function App() {
     dispatch({
       type: "DELETE", 
       id: id, 
-    })
+    }); 
+
+    //그냥 댓글도 한꺼번에 지워주도록 여기에서 코멘트를 지워주겠다. 
+    onDeleteComment(id); 
   }
 
   const onUpdate = (updatedData)=>{
