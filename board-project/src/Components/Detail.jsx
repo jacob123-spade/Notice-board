@@ -2,34 +2,22 @@ import "./Detail.css";
 import { useNavigate, useParams } from "react-router-dom";
 import {BoardDataContext, BoardDispatchContext, CommentDataContext, CommentDispatchContext } from "./Context"; 
 import { useContext, useEffect, useRef, useState } from "react";
-import CommentItem from "./CommentItem";
+import Header from "./Header";
+import CommentList from "./CommentList";
 
 
 const Detail = ({setPageInfo, islogin})=>{ 
-    const {id} = useParams(); 
+    const {id} = useParams();
     const data = useContext(BoardDataContext); 
-    const {onUpdate} = useContext(BoardDispatchContext); 
     const comments = useContext(CommentDataContext); 
-    const {onCreateComment}= useContext(CommentDispatchContext);
+    
     {/* 로그아웃상태일 시에 애러가 발생할 수 있어 chaining을 사용했다. */}
     const storedUser = localStorage.getItem("userInfo"); 
     const currentUser = JSON.parse(storedUser)?.id || null; 
-    const textRef = useRef(); 
-    const [commentInfo, setCommentInfo] = useState({
-        content: "", 
-        writer: currentUser,
-        date: new Date().toLocaleDateString(), 
-    }); 
 
     const initData = data.find((item)=>{
         return String(item.id) === String(id); 
     }); 
-
-    const [isLiked, setIsLiked] = useState(initData.likedUsers.includes(currentUser)); 
-    //좋아요를 누른 user관리 리스트 
-    const [likedUsersLst, setLikedUsersLst] = useState([...initData.likedUsers]); 
-
-    
 
     const initCommentData = comments.filter((comment)=> {
         return comment.postId === Number(id); 
@@ -41,129 +29,21 @@ const Detail = ({setPageInfo, islogin})=>{
         setPageInfo("detail"); 
     }, [setPageInfo]); 
 
-
+    
     if(!initData){
         return <div style={{padding: "20px"}}>존재하지 않는 게시글입니다</div>
-    }
-
-    const onChangeCommentInfo = (e)=>{
-        const {name, value} = e.target; 
-
-        setCommentInfo({
-            ...commentInfo, 
-            [name]: value,  
-        }); 
-    }
-
-    const onRegisterComment = ()=>{
-        const commentObj = {...commentInfo, parentId: null, postId: Number(id)};
-        if(commentInfo.content.trim()===""){
-            textRef.current.focus(); 
-            return; 
-        }
-        onCreateComment(commentObj); 
-        setCommentInfo({
-            ...commentInfo, 
-            content: "", 
-        }); 
-    }
-
-    let [likeCount, setLikeCount] = useState(initData.numRecommend); 
-
-    const onLikeClick = ()=>{
-        if(!islogin){
-            alert("로그인 후에 이용 가능합니다."); 
-            nav("/login"); 
-            return; 
-        }
-
-        const nextIsLiked = !isLiked; 
-        const nextLikeCount = isLiked ? likeCount-1 : likeCount+1;
-        const nextLikedUsers = isLiked ? likedUsersLst.filter((user)=> user !==currentUser) : [...likedUsersLst, currentUser]; 
-
-        setIsLiked(nextIsLiked); 
-        setLikeCount(nextLikeCount); 
-        setLikedUsersLst(nextLikedUsers); 
-
-        //여기에 변수로 next값들을 넣어주는 이유는 useState는 상태를 바로 바꾸지 않고 예약해주는 역할을 하기 때문에(데이터 비동기처리) 이걸 곧바로 바꿔주기 위함이다. 
-        const updatedData = {
-            ...initData, 
-            numRecommend: nextLikeCount,
-            likedUsers: nextLikedUsers, 
-        }
-
-        onUpdate(updatedData); 
     }
 
     return (
         <div className="Detail">
             <section id="detail" className="page-content">
-                {/* 게시글 본문 카드 */}
-                <div className="ui-card detail-container">
-                    <div className="detail-header">
-                        <h1 className="detail-title mt-10">{initData.title}</h1>
-                        <div className="c-light mt-20">
-                            <span>{`작성자: ${initData.writer} | ${initData.date}`}</span>
-                        </div>
-                    </div>
-                    <div className="detail-body">
-                        {initData.content}
-                    </div>
-                    <div className="button-section">
-                        <button className="ui-btn btn-secondary" onClick={()=> nav("/")}>목록</button>
-                    </div>
-                </div>
-
-                <div className="ui-card comment-container mt-20">
-                    <h3 className="comment-title mb-20">댓글 수 {initCommentData.length}</h3>
-
-                    <div className="comment-input-area mb-30">
-                        <textarea 
-                            className="comment-textarea" 
-                            placeholder={islogin ? "따뜻한 댓글을 남겨주세요" : "로그인 후 사용 가능합니다"}
-                            name="content"
-                            value={commentInfo.content}
-                            onChange={onChangeCommentInfo}
-                            disabled={!islogin}
-                            ref={textRef}
-                        ></textarea>
-                        <div className="comment-submit-wrapper">
-                            {islogin ? <button className="ui-btn btn-primary" onClick={onRegisterComment}>등록</button> : ""}
-                        </div>
-                    </div>
-
-                    <div className="recommend-section">
-                        <button 
-                            className={`recommend-btn ${(isLiked && currentUser && likedUsersLst.includes(currentUser)) ? "active" : ""}`} 
-                            onClick={onLikeClick}>
-                            <span className="thumb-icon">👍</span>
-                            <span className="recommend-label">추천</span>
-                            <span className="recommend-count">{likeCount}</span>
-                        </button>
-                    </div>
-
-                   {initCommentData.length === 0 ? (
-                    <p>첫번째 댓글을 남겨보세요 </p> 
-                   ): (
-                    /*
-                    댓글을 계층적으로 짜주기 위해서 이렇게 짰다. 우선은 메인 댓글을 먼저 랜더링 해주고 그 다음 대댓글을 랜더링 해주는 식으로 짜주었다. 
-                    */ 
-                    initCommentData.filter((item)=> item.parentId === null).map((parent)=>(
-                    <div key={parent.id} className="comment-section">
-                        <CommentItem {...parent} isLogin={islogin} replyId={parent.id}></CommentItem>
-
-                        {/*대댓글 랜더링 영역*/}
-                        {initCommentData.filter((item)=>item.parentId===parent.id).map((child) => {
-                            return <CommentItem key={child.id} {...child} isLogin={islogin} replyId={child.id}></CommentItem>
-                        })}
-                    </div>
-                    )))}
-                    
-                </div>
+                <Header initData={initData} islogin={islogin} currentUser={currentUser}></Header>
+                <CommentList id={id} initCommentData={initCommentData} islogin={islogin} currentUser={currentUser}></CommentList>
             </section>
         </div>
     ); 
 }
+
 export default Detail; 
 
 /*

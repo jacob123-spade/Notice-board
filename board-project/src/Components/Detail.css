@@ -52,9 +52,10 @@
 }
 
 .Detail .button-section{
-    display: flex; 
-    justify-content: space-between;
-    align-items: center; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  
+    gap: 10px; 
 }
 
 /* 댓글 컨테이너 */
@@ -147,7 +148,6 @@
     display: flex; 
     align-items: center; 
     gap: 5px; 
-
 }
 
 .btn-text:hover {
