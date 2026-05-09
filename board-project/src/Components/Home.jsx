@@ -5,8 +5,6 @@ import { BoardDataContext} from "./Context";
 import SearchBar from "./SearchBar";
 import PostList from "./PostList";
 
-
-
 const Home = ({setPageInfo})=>{
     const data = useContext(BoardDataContext); 
     const nav = useNavigate();
@@ -14,7 +12,7 @@ const Home = ({setPageInfo})=>{
     
 
     useEffect(()=>{
-        setPageInfo("home"); 
+        setPageInfo("home");
     }, [setPageInfo]); 
 
 

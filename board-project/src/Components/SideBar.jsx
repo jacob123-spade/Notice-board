@@ -1,9 +1,11 @@
 import NotLogin from "./NotLogin";
 import "./SideBar.css"; 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SideBar = ({pageInfo, isLogin})=>{
     const nav = useNavigate(); 
+    const [isOpen, setIsOpen] = useState(false); 
     
     const onClickMyPage = ()=>{
         const storedUser = localStorage.getItem("userInfo"); 
@@ -16,7 +18,10 @@ const SideBar = ({pageInfo, isLogin})=>{
         else{
             nav("/notlogin"); 
         }
+    }
 
+    const onChangeOpenState = ()=>{
+        setIsOpen(!isOpen); 
     }
 
     return (
@@ -31,6 +36,7 @@ const SideBar = ({pageInfo, isLogin})=>{
                 <div className={`nav-item ${pageInfo === "mypage" ? "active" : ""}`} onClick={onClickMyPage}>👤 마이페이지</div>
             </nav>
         </div>
+        
     ); 
 }; 
 
