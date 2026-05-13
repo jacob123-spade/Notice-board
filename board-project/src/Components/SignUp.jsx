@@ -28,6 +28,12 @@ const SignUp = ({setIsLogin})=>{
     const onSubmitUserInfo = (e)=>{
         e.preventDefault(); 
 
+        if(signUpInfo.pwd.length < 8){
+            alert("비밀번호를 8자 이상 입력하세요"); 
+
+            return; 
+        }
+
         if(signUpInfo.pwd !== confirm){
             setConfirm(""); 
             confirmRef.current.focus(); 
